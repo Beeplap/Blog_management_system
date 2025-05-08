@@ -1,35 +1,45 @@
 import { Link, useNavigate } from "react-router-dom";
-import img1 from '../assets/anime.png';
-import logo from '../assets/lo.png';
-
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import img1 from "../assets/anime.png";
+import logo from "../assets/lo.png";
 
 const Login = () => {
   const navigate = useNavigate();
-  const handleLogin = () => {
-    console.log("Login clicked");
-    navigate("/Block_management_system/management");
-  };
+
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validationSchema: Yup.object({
+      email: Yup.string()
+        .email("Invalid email address")
+        .required("Email is required"),
+      password: Yup.string()
+        .min(6, "Password must be at least 6 characters")
+        .required("Password is required"),
+    }),
+    onSubmit: (values) => {
+      console.log("Form values:", values);
+      navigate("/Block_management_system/management");
+    },
+  });
 
   return (
     <div className="flex min-h-screen bg-gray-100 items-center justify-center p-10">
       <div className="flex w-full max-w-4xl rounded-lg">
         <div
-          className="w-1/2 p-10 flex flex-col justify-between rounded-l-lg  "
+          className="w-1/2 p-10 flex flex-col justify-between rounded-l-lg"
           style={{
             backgroundImage: `url(${img1})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
             minHeight: "100%",
           }}
-          
         >
-          <div className="flex gap-2 items-center text-2xl font-bold text-black ">
-            {" "}
-            <img
-              className="  w-5 h-5 "
-              src={logo}
-              alt=""
-            />
+          <div className="flex gap-2 items-center text-2xl font-bold text-black">
+            <img className="w-5 h-5" src={logo} alt="" />
             React
           </div>
           <div className="text-white bg-opacity-50 p-4 rounded">
@@ -41,29 +51,45 @@ const Login = () => {
             </p>
           </div>
         </div>
-        <div className="w-1/2 flex items-center justify-center "> 
-          <div className="bg-white p-8  shadow-lg w-full max-w-md rounded-r-lg">
+        <div className="w-1/2 flex items-center justify-center">
+          <div className="bg-white p-8 shadow-lg w-full max-w-md rounded-r-lg">
             <h2 className="text-3xl font-bold mb-2">Welcome back to React</h2>
             <p className="text-gray-600 mb-6">
               Build your design system effortlessly with our powerful component
               library.
             </p>
-            <div className="space-y-4">
+            <form onSubmit={formik.handleSubmit} className="space-y-4">
               <div>
                 <label className="block text-gray-700">Email</label>
                 <input
                   type="email"
-                  defaultValue="example123@gmail.com"
+                  name="email"
+                  placeholder="example123@gmail.com"
                   className="w-full p-2 border rounded-lg"
+                  value={formik.values.email}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                 />
+                {formik.touched.email && formik.errors.email ? (
+                  <p className="text-red-500 text-sm">{formik.errors.email}</p>
+                ) : null}
               </div>
               <div>
                 <label className="block text-gray-700">Password</label>
                 <input
                   type="password"
-                  defaultValue="password"
+                  name="password"
+                  placeholder="eg:P@SsW0rD"
                   className="w-full p-2 border rounded-lg"
+                  value={formik.values.password}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                 />
+                {formik.touched.password && formik.errors.password ? (
+                  <p className="text-red-500 text-sm">
+                    {formik.errors.password}
+                  </p>
+                ) : null}
                 <a href="#" className="text-purple-600 text-sm">
                   Forgot password?
                 </a>
@@ -75,7 +101,7 @@ const Login = () => {
                 </label>
               </div>
               <button
-                onClick={handleLogin}
+                type="submit"
                 className="w-full bg-purple-600 text-white p-3 rounded-full"
               >
                 Log in
@@ -91,11 +117,14 @@ const Login = () => {
               </button>
               <p className="text-center text-gray-600 mt-4">
                 Don’t have an account?{" "}
-                <Link to="/Block_management_system/signup" className="text-purple-600">
+                <Link
+                  to="/Block_management_system/signup"
+                  className="text-purple-600"
+                >
                   Sign up
                 </Link>
               </p>
-            </div>
+            </form>
           </div>
         </div>
       </div>
