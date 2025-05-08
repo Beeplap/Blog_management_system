@@ -1,4 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
+import img2 from "../assets/girl.jpeg"
+import logo from '../assets/lo.png';
+
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -13,7 +16,7 @@ const Signup = () => {
         <div
           className="w-1/2 p-10 flex flex-col justify-between rounded-l-lg"
           style={{
-            backgroundImage: `url('./src/assets/anime.png')`,
+            backgroundImage: `url(${img2})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
             minHeight: "100%",
@@ -23,7 +26,7 @@ const Signup = () => {
             {" "}
             <img
               className="  w-5 h-5 filter invert"
-              src="./src/assets/lo.png"
+              src={logo}
               alt=""
             />
             React

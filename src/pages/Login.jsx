@@ -1,4 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
+import img1 from '../assets/anime.png';
+import logo from '../assets/lo.png';
+
 
 const Login = () => {
   const navigate = useNavigate();
@@ -13,17 +16,18 @@ const Login = () => {
         <div
           className="w-1/2 p-10 flex flex-col justify-between rounded-l-lg  "
           style={{
-            backgroundImage: `url('./src/assets/girl.jpeg')`,
+            backgroundImage: `url(${img1})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
             minHeight: "100%",
           }}
+          
         >
           <div className="flex gap-2 items-center text-2xl font-bold text-black ">
             {" "}
             <img
               className="  w-5 h-5 "
-              src="./src/assets/lo.png"
+              src={logo}
               alt=""
             />
             React
