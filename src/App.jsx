@@ -7,10 +7,10 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/" element={<Login />} />
-        <Route path="/management" element={<Management />} />
+        <Route path="/Block_management_system/login" element={<Login />} />
+        <Route path="/Block_management_system/signup" element={<Signup />} />
+        <Route path="/Block_management_system" element={<Login />} />
+        <Route path="/Block_management_system/management" element={<Management />} />
       </Routes>
     </BrowserRouter>
   );

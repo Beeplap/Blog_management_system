@@ -4,7 +4,7 @@ const Signup = () => {
   const navigate = useNavigate();
   const handleSignup = () => {
     console.log("Signup clicked");
-    navigate("/");
+    navigate("/Block_management_system/login");
   };
 
   return (
@@ -92,7 +92,7 @@ const Signup = () => {
               </button>
               <p className="text-center text-gray-600 mt-4">
                 Have an account?{" "}
-                <Link to="/login" className="text-purple-600">
+                <Link to="/Block_management_system/login" className="text-purple-600">
                   Log in
                 </Link>
               </p>

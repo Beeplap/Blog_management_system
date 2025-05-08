@@ -4,7 +4,7 @@ const Login = () => {
   const navigate = useNavigate();
   const handleLogin = () => {
     console.log("Login clicked");
-    navigate("/management");
+    navigate("/Block_management_system/management");
   };
 
   return (
@@ -87,7 +87,7 @@ const Login = () => {
               </button>
               <p className="text-center text-gray-600 mt-4">
                 Don’t have an account?{" "}
-                <Link to="/signup" className="text-purple-600">
+                <Link to="/Block_management_system/signup" className="text-purple-600">
                   Sign up
                 </Link>
               </p>
