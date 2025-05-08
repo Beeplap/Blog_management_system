@@ -3,6 +3,8 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import img1 from "../assets/anime.png";
 import logo from "../assets/lo.png";
+import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -20,11 +22,22 @@ const Login = () => {
         .min(6, "Password must be at least 6 characters")
         .required("Password is required"),
     }),
-    onSubmit: (values) => {
-      console.log("Form values:", values);
+    onSubmit: (values, { resetForm }) => {
+      postFormData(values);
+      resetForm();
       navigate("/Block_management_system/management");
     },
   });
+
+  const postFormData = async (data) => {
+    try {
+      await axios.post("https://blog-hqx2.onrender.com/user/login", data);
+      toast.success("User logged in successfully");
+    } catch (error) {
+      toast.error("User login failed")
+      console.log(error);
+    }
+  };
 
   return (
     <div className="flex min-h-screen bg-gray-100 items-center justify-center p-10">
@@ -100,6 +113,8 @@ const Login = () => {
                   Remember sign in details
                 </label>
               </div>
+              <ToastContainer/>
+
               <button
                 type="submit"
                 className="w-full bg-purple-600 text-white p-3 rounded-full"

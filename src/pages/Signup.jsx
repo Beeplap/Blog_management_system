@@ -3,6 +3,9 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import img2 from "../assets/girl.jpeg";
 import logo from "../assets/lo.png";
+import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -28,9 +31,21 @@ const Signup = () => {
         .oneOf([Yup.ref("password"), null], "Passwords must match")
         .required("Confirm Password is required"),
     }),
-    onSubmit: (values) => {
-      console.log("Form values:", values);
-      navigate("/Block_management_system/login");
+    onSubmit: async (values, { resetForm }) => {
+      try {
+        const { name, email, password } = values; // Extract only required fields
+        await axios.post("https://blog-hqx2.onrender.com/user/signup", {
+          name,
+          email,
+          password,
+        });
+        toast.success("User signed up successfully");
+        resetForm();
+        navigate("/Block_management_system/login");
+      } catch (error) {
+        toast.error("User signup failed");
+        console.log("Error:", error.response?.data || error.message);
+      }
     },
   });
 
@@ -132,6 +147,7 @@ const Signup = () => {
                   </p>
                 ) : null}
               </div>
+              <ToastContainer />
               <button
                 type="submit"
                 className="w-full bg-purple-600 text-white p-3 rounded-full"
