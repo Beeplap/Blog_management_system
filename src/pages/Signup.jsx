@@ -38,7 +38,7 @@ const Signup = () => {
 
         toast.success("User signed up successfully");
         
-        navigate("/Block_management_system/login");
+        navigate("/Blog_management_system/login");
       } catch (error) {
         toast.error("User signup failed");
         console.log(error);
@@ -64,7 +64,7 @@ const Signup = () => {
               "Empower your journey with intelligent solutions"
             </p>
             <p className="mt-4">
-              Join us today and take the first step toward managing your blocks
+              Join us today and take the first step toward managing your Blogs
               efficiently. Sign up now to unlock powerful tools and features
               designed to simplify your life.
             </p>
@@ -76,7 +76,7 @@ const Signup = () => {
             <p className="text-gray-600 mb-6"></p>
             <form onSubmit={formik.handleSubmit} className="space-y-4">
               <div>
-                <label className="block text-gray-700">Name</label>
+                <label className="Blog text-gray-700">Name</label>
                 <input
                   type="text"
                   name="name"
@@ -91,7 +91,7 @@ const Signup = () => {
                 ) : null}
               </div>
               <div>
-                <label className="block text-gray-700">Email</label>
+                <label className="Blog text-gray-700">Email</label>
                 <input
                   type="email"
                   name="email"
@@ -106,7 +106,7 @@ const Signup = () => {
                 ) : null}
               </div>
               <div>
-                <label className="block text-gray-700">Password</label>
+                <label className="Blog text-gray-700">Password</label>
                 <input
                   type="password"
                   name="password"
@@ -123,7 +123,7 @@ const Signup = () => {
                 ) : null}
               </div>
               <div>
-                <label className="block text-gray-700">Confirm Password</label>
+                <label className="Blog text-gray-700">Confirm Password</label>
                 <input
                   type="password"
                   name="confirmPassword"
@@ -159,7 +159,7 @@ const Signup = () => {
               <p className="text-center text-gray-600 mt-4">
                 Have an account?{" "}
                 <Link
-                  to="/Block_management_system/login"
+                  to="/Blog_management_system/login"
                   className="text-purple-600"
                 >
                   Log in

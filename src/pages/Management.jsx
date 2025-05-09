@@ -5,7 +5,7 @@ const Dashboard = () => {
     <div className="min-h-screen bg-gray-100 p-8">
       <div className="max-w-6xl mx-auto bg-white shadow-lg rounded-lg p-6">
         <h1 className="text-3xl font-bold text-purple-600 mb-4">
-          Welcome to the Block Management System
+          Welcome to the Blog Management System
         </h1>
         <p className="text-gray-700 mb-6">
           This is your dashboard where you can view your data and manage your

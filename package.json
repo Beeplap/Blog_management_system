@@ -1,9 +1,9 @@
 {
-  "name": "Block_management_system",
+  "name": "blog-management-system",
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://beeplap.github.io/Block_management_system",
+  "homepage": "https://beeplap.github.io/Blog_management_system",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

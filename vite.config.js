@@ -3,6 +3,6 @@ import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
-  base: '/Block_management_system/',
+  base: '/Blog_management_system/',
   plugins: [react(), tailwindcss()]
 })

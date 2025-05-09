@@ -36,8 +36,8 @@ const Login = () => {
 
   const postFormData = async (values) => {
     try {
-      const response = await axios.post("https://blog-hqx2.onrender.com/user/login", values);
-      navigate("/Block_management_system/management");
+      const response = await axios.post("https://Blog-hqx2.onrender.com/user/login", values);
+      navigate("/Blog_management_system/management");
 
       toast.success("User logged in successfully")
 
@@ -85,11 +85,11 @@ const Login = () => {
         </div>
         <div className="w-1/2 flex items-center justify-center">
           <div className="bg-white p-8 shadow-lg w-full max-w-md rounded-r-lg">
-            <h2 className="text-3xl font-bold mb-2">Welcome back to Block Manager</h2>
+            <h2 className="text-3xl font-bold mb-2">Welcome back to Blog Manager</h2>
 
             <form onSubmit={formik.handleSubmit} className="space-y-4">
               <div>
-                <label className="block text-gray-700">Email</label>
+                <label className="Blog text-gray-700">Email</label>
                 <input
                   type="email"
                   name="email"
@@ -104,7 +104,7 @@ const Login = () => {
                 ) : null}
               </div>
               <div>
-                <label className="block text-gray-700">Password</label>
+                <label className="Blog text-gray-700">Password</label>
                 <input
                   type="password"
                   name="password"
@@ -149,7 +149,7 @@ const Login = () => {
               <p className="text-center text-gray-600 mt-4">
                 Don’t have an account?{" "}
                 <Link
-                  to="/Block_management_system/signup"
+                  to="/Blog_management_system/signup"
                   className="text-purple-600"
                 >
                   Sign up
@@ -160,7 +160,7 @@ const Login = () => {
         </div>
       </div>
       <Link
-        to="/Block_management_system"
+        to="/Blog_management_system"
         className="text-blue-600 p-5 ml-150 underline   "
       >
         Back to landing page
