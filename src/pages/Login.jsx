@@ -2,11 +2,16 @@ import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import img1 from "../assets/anime.png";
-import logo from "../assets/lo.png";
+
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
+import { Authcontext } from "../context/Authcontext";
+import { useContext } from "react";
 
 const Login = () => {
+   
+  useContext(Authcontext);
+
   const navigate = useNavigate();
 
   const formik = useFormik({
@@ -25,22 +30,37 @@ const Login = () => {
     onSubmit: (values, { resetForm }) => {
       postFormData(values);
       resetForm();
-      navigate("/Block_management_system/management");
+      
     },
   });
 
-  const postFormData = async (data) => {
+  const postFormData = async (values) => {
     try {
-      await axios.post("https://blog-hqx2.onrender.com/user/login", data);
-      toast.success("User logged in successfully");
+      const response = await axios.post("https://blog-hqx2.onrender.com/user/login", values);
+      navigate("/Block_management_system/management");
+
+      toast.success("User logged in successfully")
+
+      const token = response.data.token;
+      const user = response.data.user;
+
+      console.log(token , user);
+      console.log(response.data);
+
+      
+
+
+
+
+
     } catch (error) {
-      toast.error("User login failed")
+      toast.error("User login failed");
       console.log(error);
     }
   };
 
   return (
-    <div className="flex min-h-screen bg-gray-100 items-center justify-center p-10">
+    <div className="flex flex-col  min-h-screen bg-gray-100 items-center justify-center p-10">
       <div className="flex w-full max-w-4xl rounded-lg">
         <div
           className="w-1/2 p-10 flex flex-col justify-between rounded-l-lg"
@@ -52,25 +72,21 @@ const Login = () => {
           }}
         >
           <div className="flex gap-2 items-center text-2xl font-bold text-black">
-            <img className="w-5 h-5" src={logo} alt="" />
-            React
+            
           </div>
           <div className="text-white bg-opacity-50 p-4 rounded">
             <p className="text-3xl italic">
-              "Empowering teams with the tools they deserve."
+              "Step into a world of endless possibilities and inspiration."
             </p>
             <p className="mt-4">
-              Zeeke Sulker, Director of Digital Marketing Technology
+              John Doe, Visionary and Innovator
             </p>
           </div>
         </div>
         <div className="w-1/2 flex items-center justify-center">
           <div className="bg-white p-8 shadow-lg w-full max-w-md rounded-r-lg">
-            <h2 className="text-3xl font-bold mb-2">Welcome back to React</h2>
-            <p className="text-gray-600 mb-6">
-              Build your design system effortlessly with our powerful component
-              library.
-            </p>
+            <h2 className="text-3xl font-bold mb-2">Welcome back to Block Manager</h2>
+
             <form onSubmit={formik.handleSubmit} className="space-y-4">
               <div>
                 <label className="block text-gray-700">Email</label>
@@ -109,11 +125,11 @@ const Login = () => {
               </div>
               <div className="flex items-center">
                 <input type="checkbox" className="mr-2" />
-                <label className="text-gray-700">
+                <label className="text-gray-700 ">
                   Remember sign in details
                 </label>
               </div>
-              <ToastContainer/>
+              <ToastContainer />
 
               <button
                 type="submit"
@@ -143,6 +159,12 @@ const Login = () => {
           </div>
         </div>
       </div>
+      <Link
+        to="/Block_management_system"
+        className="text-blue-600 p-5 ml-150 underline   "
+      >
+        Back to landing page
+      </Link>
     </div>
   );
 };

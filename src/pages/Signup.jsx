@@ -2,7 +2,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import img2 from "../assets/girl.jpeg";
-import logo from "../assets/lo.png";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -31,26 +30,24 @@ const Signup = () => {
         .oneOf([Yup.ref("password"), null], "Passwords must match")
         .required("Confirm Password is required"),
     }),
-    onSubmit: async (values, { resetForm }) => {
+    onSubmit: async (values) => {
       try {
-        const { name, email, password } = values; // Extract only required fields
-        await axios.post("https://blog-hqx2.onrender.com/user/signup", {
-          name,
-          email,
-          password,
-        });
+      
+        const response = await axios.post("https://jsonplaceholder.typicode.com/posts", values );
+      console.log("Login response:", response.data);
+
         toast.success("User signed up successfully");
-        resetForm();
+        
         navigate("/Block_management_system/login");
       } catch (error) {
         toast.error("User signup failed");
-        console.log("Error:", error.response?.data || error.message);
+        console.log(error);
       }
     },
   });
 
   return (
-    <div className="flex min-h-screen bg-gray-100 items-center justify-center p-12 ">
+    <div className="flex min-h-screen bg-gray-100 items-center justify-center p-10">
       <div className="flex w-full max-w-4xl ">
         <div
           className="w-1/2 p-10 flex flex-col justify-between rounded-l-lg"
@@ -61,26 +58,22 @@ const Signup = () => {
             minHeight: "100%",
           }}
         >
-          <div className="flex gap-2 items-center text-2xl font-bold text-white">
-            {" "}
-            <img className="  w-5 h-5 filter invert" src={logo} alt="" />
-            React
-          </div>
+          <div></div>
           <div className="text-white  bg-opacity-50 p-4 rounded">
             <p className="text-3xl italic">
-              "Simply all the tools that my team and I need."
+              "Empower your journey with intelligent solutions"
             </p>
             <p className="mt-4">
-              Karen Yue, Director of Digital Marketing Technology
+              Join us today and take the first step toward managing your blocks
+              efficiently. Sign up now to unlock powerful tools and features
+              designed to simplify your life.
             </p>
           </div>
         </div>
         <div className="w-1/2 flex items-center justify-center ">
           <div className="bg-white p-8 shadow-lg w-full max-w-md rounded-r-lg">
             <h2 className="text-3xl font-bold mb-2">Create your account</h2>
-            <p className="text-gray-600 mb-6">
-              Join Nucleus UI and start designing with ease.
-            </p>
+            <p className="text-gray-600 mb-6"></p>
             <form onSubmit={formik.handleSubmit} className="space-y-4">
               <div>
                 <label className="block text-gray-700">Name</label>
@@ -154,7 +147,7 @@ const Signup = () => {
               >
                 Create account
               </button>
-              <div className="text-center text-gray-500 my-4">OR</div>
+              <div className="text-center text-gray-500 my-1">OR</div>
               <button className="w-full border p-3 rounded-lg flex items-center justify-center">
                 <img
                   src="https://www.google.com/favicon.ico"
