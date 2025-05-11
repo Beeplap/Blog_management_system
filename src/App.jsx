@@ -1,21 +1,37 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Landing from "./pages/Landing";
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
-import Management from "./pages/Management";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
+import Login from "./pages/Login.jsx";
+import Signup from "./pages/Signup.jsx";
+import Landing from "./pages/Landing.jsx";
+import Protectedroute from "./components/Protectedroute.jsx";
+import Dashboard from "./pages/Dashboard.jsx";
+import CreateBlog from "./pages/CreateBlog.jsx";
 
-const App = () => {
+const BlogListWrapper = () => {
+  return <div>Blog List Placeholder</div>; 
+};
+
+function App() {
   return (
-    <Router>
+    <BrowserRouter>
       <Routes>
-        <Route path="/Blog_management_system" element={<Landing />} />
+        <Route
+          path="/Dashboard"
+          element={
+            <Protectedroute>
+              <Dashboard />
+            </Protectedroute>
+          }
+        ></Route>
+        <Route index element={<BlogListWrapper />} />
+        <Route path="/createblogs" element={<CreateBlog />} />
+
+        <Route path="/Blog_management_system/" element={<Landing />} />
         <Route path="/Blog_management_system/login" element={<Login />} />
         <Route path="/Blog_management_system/signup" element={<Signup />} />
-        <Route path="/Blog_management_system/management" element={<Management />} />
       </Routes>
-    </Router>
+    </BrowserRouter>
   );
-};
+}
 
 export default App;

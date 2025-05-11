@@ -9,10 +9,39 @@ import { Authcontext } from "../context/Authcontext";
 import { useContext } from "react";
 
 const Login = () => {
-   
-  useContext(Authcontext);
-
+  const { login } = useContext(Authcontext); // ✅ Correctly use the login function from Authcontext
   const navigate = useNavigate();
+
+  
+
+
+
+  const postData = async (values) => {
+    try {
+      const response = await axios.post(
+        "https://blog-hqx2.onrender.com/user/login",
+        values
+      );
+
+      
+
+      toast.success("User Login Successfully!");
+
+      const { token, user } = response.data;
+
+      console.log("Received Token:", token);
+      console.log("Received User:", user);
+
+      // ✅ Call login with received values
+      login(token, user);
+
+      // Redirect to the management page after successful login
+      navigate("/Dashboard");
+    } catch (error) {
+      toast.error(error.response?.data?.message || error.message);
+      console.error("Login error:", error);
+    }
+  };
 
   const formik = useFormik({
     initialValues: {
@@ -27,40 +56,14 @@ const Login = () => {
         .min(6, "Password must be at least 6 characters")
         .required("Password is required"),
     }),
-    onSubmit: (values, { resetForm }) => {
-      postFormData(values);
-      resetForm();
-      
+    onSubmit: async (values, { resetForm }) => {
+      await postData(values);
+      resetForm(); // Reset the form after submission
     },
   });
 
-  const postFormData = async (values) => {
-    try {
-      const response = await axios.post("https://Blog-hqx2.onrender.com/user/login", values);
-      navigate("/Blog_management_system/management");
-
-      toast.success("User logged in successfully")
-
-      const token = response.data.token;
-      const user = response.data.user;
-
-      console.log(token , user);
-      console.log(response.data);
-
-      
-
-
-
-
-
-    } catch (error) {
-      toast.error("User login failed");
-      console.log(error);
-    }
-  };
-
   return (
-    <div className="flex flex-col  min-h-screen bg-gray-100 items-center justify-center p-10">
+    <div className="flex flex-col min-h-screen bg-gray-100 items-center justify-center p-10">
       <div className="flex w-full max-w-4xl rounded-lg">
         <div
           className="w-1/2 p-10 flex flex-col justify-between rounded-l-lg"
@@ -71,21 +74,19 @@ const Login = () => {
             minHeight: "100%",
           }}
         >
-          <div className="flex gap-2 items-center text-2xl font-bold text-black">
-            
-          </div>
+          <div></div>
           <div className="text-white bg-opacity-50 p-4 rounded">
             <p className="text-3xl italic">
               "Step into a world of endless possibilities and inspiration."
             </p>
-            <p className="mt-4">
-              John Doe, Visionary and Innovator
-            </p>
+            <p className="mt-4">John Doe, Visionary and Innovator</p>
           </div>
         </div>
         <div className="w-1/2 flex items-center justify-center">
           <div className="bg-white p-8 shadow-lg w-full max-w-md rounded-r-lg">
-            <h2 className="text-3xl font-bold mb-2">Welcome back to Blog Manager</h2>
+            <h2 className="text-3xl font-bold mb-2">
+              Welcome back to Blog Manager
+            </h2>
 
             <form onSubmit={formik.handleSubmit} className="space-y-4">
               <div>
@@ -161,7 +162,7 @@ const Login = () => {
       </div>
       <Link
         to="/Blog_management_system"
-        className="text-blue-600 p-5 ml-150 underline   "
+        className="text-blue-600 p-5 ml-150 underline"
       >
         Back to landing page
       </Link>
