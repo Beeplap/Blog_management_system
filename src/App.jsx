@@ -7,6 +7,7 @@ import Protectedroute from "./components/Protectedroute.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
 import CreateBlog from "./pages/CreateBlog.jsx";
 import SingleBlogPage from "./pages/SingleBlogPage.jsx";
+import Myblogs from "./pages/MyBlogs.jsx";
 
 const BlogListWrapper = () => {
   return <div>Blog List Placeholder</div>;
@@ -32,6 +33,17 @@ function App() {
             </Protectedroute>
           }
         />
+
+        <Route
+          path="/myblogs"
+          element={
+            <Protectedroute>
+              <Myblogs/>
+            </Protectedroute>
+          }
+        />
+        
+
 
         <Route index element={<BlogListWrapper />} />
         <Route path="/createblogs" element={<CreateBlog />} />

@@ -35,19 +35,21 @@ const Dashboard = () => {
     { title: "My Blogs", icon: <GoBook />, path: "/myblogs" },
   ];
 
+  const sanitizeHTML = (html) => html.replace(/<[^>]+>/g, "");
+
   return (
     <section className="min-h-screen bg-gray-100">
       {/* Navbar */}
-      <div className="bg-gradient-to-r from-teal-500 to-teal-600 text-white shadow-lg p-4 sm:p-6 flex flex-col md:flex-row items-center justify-between gap-4 md:gap-6 flex-nowrap">
+      <div className="bg-gradient-to-r from-teal-500 to-teal-600 text-white shadow-lg p-4 sm:p-6 flex flex-col md:flex-row items-center justify-between gap-4 md:gap-6">
         <div className="text-xl sm:text-2xl md:text-3xl font-bold">
           <span className="text-yellow-400">Blog</span>Verse
         </div>
         <ul className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4 w-full md:w-auto">
           {navitems.map((item, index) => (
-            <li key={index} className="w-full md:w-auto">
+            <li key={index}>
               <Link
                 to={item.path}
-                className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-200 w-full ${
+                className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-200 ${
                   location.pathname === item.path
                     ? "bg-teal-700 shadow-md"
                     : "hover:bg-teal-600 hover:shadow-md"
@@ -59,11 +61,15 @@ const Dashboard = () => {
             </li>
           ))}
         </ul>
-        <div className="flex items-center justify-end space-x-2 md:space-x-4 w-full md:w-auto">
-          <span className="text-base sm:text-lg md:text-xl">{user?.name || "Guest"}</span>
-          <button className="bg-white text-teal-500 px-3 py-1 sm:px-4 sm:py-2 rounded-lg hover:bg-gray-100 hover:shadow-md transition-all duration-200 text-sm sm:text-base  md:w-auto">
+        <div className="flex items-center space-x-2 md:space-x-4">
+          <span className="text-base sm:text-lg md:text-xl">
+            {user?.name || "Guest"}
+          </span>
+          <Link
+          to={"/Blog_management_system/"} 
+          className="bg-white text-teal-500 px-3 py-1 sm:px-4 sm:py-2 rounded-lg hover:bg-gray-100 hover:shadow-md transition-all duration-200 text-sm sm:text-base">
             Logout
-          </button>
+          </Link>
         </div>
       </div>
 
@@ -74,7 +80,7 @@ const Dashboard = () => {
         </h2>
         <input
           type="text"
-          placeholder="Search blogs by title, content, or author..."
+          placeholder="Search blogs by title..."
           className="border border-gray-300 rounded-lg px-3 sm:px-4 py-2 w-full sm:w-1/2 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-teal-500"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
@@ -88,35 +94,79 @@ const Dashboard = () => {
       </div>
 
       {/* Blog List */}
-      <div className="flex flex-wrap justify-center gap-4 sm:gap-6 px-2 sm:px-4">
+      <div className="flex flex-wrap justify-center gap-4 sm:gap-6 px-2 sm:px-4 items-stretch">
         {filteredBlogs.length > 0 ? (
           filteredBlogs.map((blog) => (
             <Link
               to={`/singleblogs/${blog._id}`}
               key={blog._id}
-              className="bg-white w-full sm:w-[48%] lg:w-[31%] p-3 sm:p-4 rounded-xl shadow-md hover:shadow-xl hover:scale-105 transition-all duration-300 flex flex-col group"
+              className="bg-white w-full sm:w-[48%] lg:w-[31%] p-4 rounded-xl shadow-md hover:scale-101 hover:drop-shadow-2xl transition-all duration-300 flex flex-col h-[320px] sm:h-[360px] md:h-[400px] relative group"
             >
-              <div className="relative mb-2 sm:mb-3">
+              <div className="relative mb-3">
                 <img
                   src={blog.image || "/default-image.jpg"}
-                  
                   alt={blog.title}
-                  className="w-full h-36 sm:h-40 md:h-48 object-cover rounded-lg border border-gray-200"
+                  className="w-full h-40 md:h-48 object-cover rounded-lg border border-gray-200"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-gray-900/30 to-transparent rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                {/* Delete button (visible for all users) */}
+                <button
+                  className=" absolute top-2 right-2 z-10 text-red-500 bg-white bg-opacity-80 hover:bg-red-100 rounded-full p-2 text-xl shadow transition-colors"
+                  title="Delete Blog"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    if (
+                      window.confirm(
+                        "Are you sure you want to delete this blog?"
+                      )
+                    ) {
+                      axios
+                        .delete(
+                          `https://blog-hqx2.onrender.com/blog/${blog._id}`
+                        )
+                        .then(() => {
+                          setBlogs((prev) =>
+                            prev.filter((b) => b._id !== blog._id)
+                          );
+                        });
+                    }
+                  }}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-5 w-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
               </div>
-              <h2 className="text-base sm:text-lg md:text-xl font-bold text-gray-800 mb-1 group-hover:text-teal-600 transition-colors duration-300">
-                {blog.title}
-              </h2>
-              <p className="text-xs sm:text-sm text-gray-600 mb-2">
-                By <span className="font-medium">{blog.author.name}</span>
-              </p>
-              <p className="text-gray-700 mb-2 text-xs sm:text-sm md:text-base line-clamp-3">
-                {blog.content}
-              </p>
-              <p className="text-xs sm:text-sm text-gray-500 mt-auto">
-                Created at: {new Date(blog.createdAt).toLocaleDateString()}
-              </p>
+              <div className="flex flex-col flex-1">
+                <h2 className="text-lg md:text-xl font-bold text-gray-800 mb-1 group-hover:text-teal-600 transition-colors duration-300 truncate">
+                  {blog.title}
+                </h2>
+                <p className="text-sm text-gray-600 mb-1">
+                  By <span className="font-medium">{blog.author.name}</span>
+                </p>
+                <p className="text-gray-700 text-sm line-clamp-3 overflow-hidden mb-3">
+                  {sanitizeHTML(blog.content)}
+                </p>
+                <div className="mt-auto pt-2">
+                  <p className="text-xs text-gray-500">
+                    Created at: {new Date(blog.createdAt).toLocaleDateString()}{" "}
+                    {new Date(blog.createdAt).toLocaleTimeString([], {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}
+                  </p>
+                </div>
+              </div>
             </Link>
           ))
         ) : (
