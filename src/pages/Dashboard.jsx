@@ -38,16 +38,16 @@ const Dashboard = () => {
   return (
     <section className="min-h-screen bg-gray-100">
       {/* Navbar */}
-      <div className="bg-teal-500 text-white shadow-md p-4 flex flex-col md:flex-row items-center justify-between gap-4 md:gap-0">
-        <div className="text-2xl font-bold">
+      <div className="bg-teal-500 text-white shadow-md p-4 sm:p-6 flex flex-col md:flex-row items-center justify-between gap-4 md:gap-6 flex-nowrap">
+        <div className="text-xl sm:text-2xl font-bold">
           <span className="text-yellow-400">Blog</span>Verse
         </div>
-        <ul className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-6 w-full md:w-auto">
+        <ul className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4 w-full md:w-auto">
           {navitems.map((item, index) => (
-            <li key={index}>
+            <li key={index} className="w-full md:w-auto">
               <Link
                 to={item.path}
-                className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-200 ${
+                className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-200 w-full ${
                   location.pathname === item.path
                     ? "bg-teal-700"
                     : "hover:bg-teal-600"
@@ -59,43 +59,44 @@ const Dashboard = () => {
             </li>
           ))}
         </ul>
-        <div className="flex items-center space-x-2 md:space-x-4 mt-2 md:mt-0">
-          <span className="text-lg">{user?.name || "Guest"}</span>
-          <button className="bg-white text-teal-500 px-3 py-1 md:px-4 md:py-2 rounded hover:bg-gray-200 text-sm md:text-base">
+        <div className="flex items-center justify-end space-x-2 md:space-x-4 w-full md:w-auto">
+          <span className="text-base sm:text-lg">{user?.name || "Guest"}</span>
+          <button className="bg-white text-teal-500 px-3 py-1 sm:px-4 sm:py-2 rounded hover:bg-gray-200 text-sm sm:text-base md:w-auto">
             Logout
           </button>
         </div>
       </div>
 
       {/* Search Bar */}
-      <div className="bg-white shadow-md p-4 mb-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-        <h2 className="text-lg sm:text-xl font-semibold text-gray-700">
+      <div className="bg-white shadow-md p-4 sm:p-6 mb-4 sm:mb-6 flex flex-col sm:flex-row items-center justify-between gap-4 mx-2 sm:mx-4">
+        <h2 className="text-base sm:text-lg md:text-xl font-semibold text-gray-700">
           Discover Blog Posts
         </h2>
         <input
           type="text"
           placeholder="Search blogs by title, content, or author..."
-          className="border border-gray-300 rounded-lg px-4 py-2 w-full sm:w-1/2"
+          className="border border-gray-300 rounded-lg px-3 sm:px-4 py-2 w-full sm:w-1/2 text-sm sm:text-base"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
         <Link
           to="/createblogs"
-          className="bg-teal-500 text-white px-3 py-2 rounded-lg hover:bg-teal-600 w-full sm:w-auto text-center"
+          className="bg-teal-500 text-white px-3 sm:px-4 py-2 rounded-lg hover:bg-teal-600 w-full sm:w-auto text-center text-sm sm:text-base"
         >
           + Create New Blog
         </Link>
       </div>
 
       {/* Blog List */}
-      <div className="flex flex-wrap justify-center gap-6 px-2 sm:px-4">
+      <div className="flex flex-wrap justify-center gap-4 sm:gap-6 px-2 sm:px-4">
         {filteredBlogs.length > 0 ? (
-          filteredBlogs.map((blog, index) => (
-            <div
-              key={index}
-              className="bg-white w-full sm:w-[48%] lg:w-[30%] p-4 rounded shadow-md hover:shadow-lg transition-shadow duration-300 flex flex-col"
+          filteredBlogs.map((blog) => (
+            <Link
+              to={`/singleblogs/${blog._id}`}
+              key={blog._id}
+              className="bg-white w-full sm:w-[48%] lg:w-[31%] p-3 sm:p-4 rounded shadow-md hover:shadow-lg transition-shadow duration-300 flex flex-col"
             >
-              <h2 className="text-lg sm:text-xl font-bold text-gray-800 mb-1">
+              <h2 className="text-base sm:text-lg md:text-xl font-bold text-gray-800 mb-1">
                 {blog.title}
               </h2>
               <p className="text-xs sm:text-sm text-gray-600 mb-2">
@@ -105,18 +106,18 @@ const Dashboard = () => {
                 src={blog.image || "/default-image.jpg"}
                 onError={(e) => (e.target.src = "/default-image.jpg")}
                 alt={blog.title}
-                className="w-full h-40 sm:h-48 object-cover rounded mb-3"
+                className="w-full h-36 sm:h-40 md:h-48 object-cover rounded mb-2 sm:mb-3"
               />
-              <p className="text-gray-700 mb-2 text-sm sm:text-base">
+              <p className="text-gray-700 mb-2 text-xs sm:text-sm md:text-base line-clamp-3">
                 {blog.content}
               </p>
-              <p className="text-xs text-gray-500 mt-auto">
+              <p className="text-xs sm:text-sm text-gray-500 mt-auto">
                 Created at: {new Date(blog.createdAt).toLocaleDateString()}
               </p>
-            </div>
+            </Link>
           ))
         ) : (
-          <p className="text-gray-500 text-center w-full">
+          <p className="text-gray-500 text-center w-full text-sm sm:text-base">
             No blogs available.
           </p>
         )}

@@ -60,16 +60,16 @@ const CreateBlog = () => {
   return (
     <section className="min-h-screen bg-gray-100">
       {/* Navbar */}
-      <div className="bg-teal-500 text-white shadow-md p-4 flex items-center justify-between">
-        <div className="text-2xl font-bold">
+      <div className="bg-teal-500 text-white shadow-md p-4 sm:p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="text-xl sm:text-2xl font-bold">
           <span className="text-yellow-400">Blog</span>Verse
         </div>
-        <ul className="flex space-x-6">
+        <ul className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 w-full sm:w-auto">
           {navitems.map((item, index) => (
-            <li key={index}>
+            <li key={index} className="w-full sm:w-auto">
               <Link
                 to={item.path}
-                className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-200 ${
+                className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-200 w-full ${
                   window.location.pathname === item.path
                     ? "bg-teal-700"
                     : "hover:bg-teal-600"
@@ -81,18 +81,18 @@ const CreateBlog = () => {
             </li>
           ))}
         </ul>
-        <div className="flex items-center space-x-4">
-          <span className="text-lg">Alu</span>
-          <button className="bg-white text-teal-500 px-4 py-2 rounded hover:bg-gray-200">
+        <div className="flex items-center space-x-2 sm:space-x-4 w-full sm:w-auto">
+          <span className="text-base sm:text-lg">Alu</span>
+          <button className="bg-white text-teal-500 px-4 py-2 rounded hover:bg-gray-200 w-full sm:w-auto">
             Logout
           </button>
         </div>
       </div>
 
       {/* Form Section */}
-      <div className="flex justify-center items-center py-10">
-        <div className="bg-white shadow-lg border border-gray-200 rounded-xl p-8 max-w-lg w-full">
-          <h1 className="text-3xl font-bold text-center text-teal-600 mb-6">
+      <div className="flex justify-center items-center py-6 sm:py-10 px-4 sm:px-6">
+        <div className="bg-white shadow-lg border border-gray-200 rounded-xl p-6 sm:p-8 w-full max-w-full sm:max-w-lg">
+          <h1 className="text-2xl sm:text-3xl font-bold text-center text-teal-600 mb-4 sm:mb-6">
             Create a New Blog
           </h1>
           <Formik
@@ -101,59 +101,59 @@ const CreateBlog = () => {
             onSubmit={handleSubmit}
           >
             {({ setFieldValue }) => (
-              <Form className="space-y-6">
-                {formitems.map((item, index) => (
-                  <div key={index} className="flex flex-col">
-                    <label
-                      className="text-gray-700 font-medium mb-2"
-                      htmlFor={item.name}
-                    >
-                      {item.label}
-                    </label>
-                    {item.type === "file" ? (
-                      <input
-                        id={item.name}
-                        name={item.name}
-                        type="file"
-                        accept="image/*"
-                        onChange={(event) => {
-                          setFieldValue(
-                            item.name,
-                            event.currentTarget.files[0]
-                          );
-                        }}
-                        className="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
-                      />
-                    ) : (
-                      <Field
-                        id={item.name}
-                        name={item.name}
-                        type={item.type}
-                        as={item.name === "yourContent" ? "textarea" : "input"}
-                        className="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
-                        placeholder={item.label}
-                        rows={item.name === "yourContent" ? 5 : undefined}
-                      />
-                    )}
-                    <ErrorMessage
+              <Form className="space-y-4 sm:space-y-6">
+              {formitems.map((item, index) => (
+                <div key={index} className="flex flex-col">
+                  <label
+                    className="text-gray-700 font-medium mb-1 sm:mb-2 text-sm sm:text-base"
+                    htmlFor={item.name}
+                  >
+                    {item.label}
+                  </label>
+                  {item.type === "file" ? (
+                    <input
+                      id={item.name}
                       name={item.name}
-                      component="div"
-                      className="text-red-500 text-sm mt-1"
+                      type="file"
+                      accept="image/*"
+                      onChange={(event) => {
+                        setFieldValue(
+                          item.name,
+                          event.currentTarget.files[0]
+                        );
+                      }}
+                      className="border border-gray-300 rounded-lg p-2 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-teal-500"
                     />
-                  </div>
-                ))}
-                <button
-                  type="submit"
-                  className="w-full bg-teal-500 text-white py-2 rounded-lg hover:bg-teal-600 transition-all duration-200"
-                >
-                  Publish Blog
-                </button>
-              </Form>
-            )}
-          </Formik>
-        </div>
+                  ) : (
+                    <Field
+                      id={item.name}
+                      name={item.name}
+                      type={item.type}
+                      as={item.name === "yourContent" ? "textarea" : "input"}
+                      className="border border-gray-300 rounded-lg p-2 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-teal-500"
+                      placeholder={item.label}
+                      rows={item.name === "yourContent" ? 5 : undefined}
+                    />
+                  )}
+                  <ErrorMessage
+                    name={item.name}
+                    component="div"
+                    className="text-red-500 text-xs sm:text-sm mt-1"
+                  />
+                </div>
+              ))}
+              <button
+                type="submit"
+                className="w-full bg-teal-500 text-white py-2 rounded-lg hover:bg-teal-600 transition-all duration-200 text-base sm:text-lg"
+              >
+                Publish Blog
+              </button>
+            </Form>
+          )}
+        </Formik>
       </div>
-    </section>
+    </div>
+  </section>
   );
 };
 
