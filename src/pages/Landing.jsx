@@ -29,13 +29,13 @@ const Landing = () => {
         </h1>
         <div className="flex flex-col justify-center sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
           <button
-            onClick={() => navigate("/login")}
+            onClick={() => navigate("/Blog_management_system/login")}
             className="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 text-base sm:text-lg w-full sm:w-auto transition-all duration-200"
           >
             Login
           </button>
           <button
-            onClick={() => navigate("/signup")}
+            onClick={() => navigate("/Blog_management_system/signup")}
             className="bg-gray-600 text-white px-6 py-3 rounded-lg hover:bg-gray-700 text-base sm:text-lg w-full sm:w-auto transition-all duration-200"
           >
             Signup
