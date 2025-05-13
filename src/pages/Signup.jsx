@@ -32,51 +32,60 @@ const Signup = () => {
     }),
     onSubmit: async (values) => {
       try {
-      
-        const response = await axios.post("https://jsonplaceholder.typicode.com/posts", values );
-      console.log("Login response:", response.data);
-
+        const response = await axios.post(
+          "https://blog-hqx2.onrender.com/user/register",
+          {
+            name: values.name,
+            email: values.email,
+            password: values.password,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        console.log("Signup response:", response.data);
         toast.success("User signed up successfully");
-        
         navigate("/Blog_management_system/login");
       } catch (error) {
-        toast.error("User signup failed");
-        console.log(error);
+        const errorMessage = error.response?.data?.message || error.message;
+        toast.error(errorMessage);
+        console.error("Signup error:", error);
       }
     },
   });
 
   return (
-    <div className="flex min-h-screen bg-gray-100 items-center justify-center p-10">
-      <div className="flex w-full max-w-4xl ">
+    <div className="flex flex-col min-h-screen bg-gray-100 items-center justify-center p-4 sm:p-6 lg:p-10">
+      <div className="flex flex-col lg:flex-row w-full max-w-4xl rounded-lg">
         <div
-          className="w-1/2 p-10 flex flex-col justify-between rounded-l-lg"
+          className="w-full lg:w-1/2 p-6 sm:p-10 flex flex-col justify-between rounded-t-lg lg:rounded-t-none lg:rounded-l-lg"
           style={{
             backgroundImage: `url(${img2})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
-            minHeight: "100%",
+            minHeight: "300px",
           }}
         >
           <div></div>
-          <div className="text-white  bg-opacity-50 p-4 rounded">
-            <p className="text-3xl italic">
+          <div className="text-white bg-opacity-50 p-4 rounded">
+            <p className="text-xl sm:text-2xl lg:text-3xl italic">
               "Empower your journey with intelligent solutions"
             </p>
-            <p className="mt-4">
+            <p className="mt-4 text-sm sm:text-base">
               Join us today and take the first step toward managing your Blogs
               efficiently. Sign up now to unlock powerful tools and features
               designed to simplify your life.
             </p>
           </div>
         </div>
-        <div className="w-1/2 flex items-center justify-center ">
-          <div className="bg-white p-8 shadow-lg w-full max-w-md rounded-r-lg">
-            <h2 className="text-3xl font-bold mb-2">Create your account</h2>
-            <p className="text-gray-600 mb-6"></p>
+        <div className="w-full lg:w-1/2 flex items-center justify-center bg-white rounded-b-lg lg:rounded-b-none lg:rounded-r-lg">
+          <div className="p-6 sm:p-8 w-full max-w-full sm:max-w-md">
+            <h2 className="text-2xl sm:text-3xl font-bold mb-2">Create your account</h2>
             <form onSubmit={formik.handleSubmit} className="space-y-4">
               <div>
-                <label className="Blog text-gray-700">Name</label>
+                <label className="block text-gray-700">Name</label>
                 <input
                   type="text"
                   name="name"
@@ -91,7 +100,7 @@ const Signup = () => {
                 ) : null}
               </div>
               <div>
-                <label className="Blog text-gray-700">Email</label>
+                <label className="block text-gray-700">Email</label>
                 <input
                   type="email"
                   name="email"
@@ -106,7 +115,7 @@ const Signup = () => {
                 ) : null}
               </div>
               <div>
-                <label className="Blog text-gray-700">Password</label>
+                <label className="block text-gray-700">Password</label>
                 <input
                   type="password"
                   name="password"
@@ -117,13 +126,11 @@ const Signup = () => {
                   onBlur={formik.handleBlur}
                 />
                 {formik.touched.password && formik.errors.password ? (
-                  <p className="text-red-500 text-sm">
-                    {formik.errors.password}
-                  </p>
+                  <p className="text-red-500 text-sm">{formik.errors.password}</p>
                 ) : null}
               </div>
               <div>
-                <label className="Blog text-gray-700">Confirm Password</label>
+                <label className="block text-gray-700">Confirm Password</label>
                 <input
                   type="password"
                   name="confirmPassword"
@@ -133,21 +140,18 @@ const Signup = () => {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
-                {formik.touched.confirmPassword &&
-                formik.errors.confirmPassword ? (
-                  <p className="text-red-500 text-sm">
-                    {formik.errors.confirmPassword}
-                  </p>
+                {formik.touched.confirmPassword && formik.errors.confirmPassword ? (
+                  <p className="text-red-500 text-sm">{formik.errors.confirmPassword}</p>
                 ) : null}
               </div>
               <ToastContainer />
               <button
                 type="submit"
-                className="w-full bg-purple-600 text-white p-3 rounded-full"
+                className="w-full bg-purple-600 text-white p-3 rounded-full hover:bg-purple-700"
               >
                 Create account
               </button>
-              <div className="text-center text-gray-500 my-1">OR</div>
+              <div className="text-center text-gray-500 my-4">OR</div>
               <button className="w-full border p-3 rounded-lg flex items-center justify-center">
                 <img
                   src="https://www.google.com/favicon.ico"
@@ -156,7 +160,7 @@ const Signup = () => {
                 />
                 Sign up with Google
               </button>
-              <p className="text-center text-gray-600 mt-4">
+              <p className="text-center text-gray-600 mt-4 text-sm sm:text-base">
                 Have an account?{" "}
                 <Link
                   to="/Blog_management_system/login"
@@ -169,6 +173,12 @@ const Signup = () => {
           </div>
         </div>
       </div>
+      <Link
+        to="/Blog_management_system"
+        className="text-blue-600 p-5 underline text-sm sm:text-base"
+      >
+        Back to landing page
+      </Link>
     </div>
   );
 };

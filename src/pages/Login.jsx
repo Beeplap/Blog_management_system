@@ -2,19 +2,14 @@ import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import img1 from "../assets/anime.png";
-
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import { Authcontext } from "../context/Authcontext";
 import { useContext } from "react";
 
 const Login = () => {
-  const { login } = useContext(Authcontext); // ✅ Correctly use the login function from Authcontext
+  const { login } = useContext(Authcontext);
   const navigate = useNavigate();
-
-  
-
-
 
   const postData = async (values) => {
     try {
@@ -23,8 +18,6 @@ const Login = () => {
         values
       );
 
-      
-
       toast.success("User Login Successfully!");
 
       const { token, user } = response.data;
@@ -32,10 +25,8 @@ const Login = () => {
       console.log("Received Token:", token);
       console.log("Received User:", user);
 
-      // ✅ Call login with received values
       login(token, user);
 
-      // Redirect to the management page after successful login
       navigate("/Dashboard");
     } catch (error) {
       toast.error(error.response?.data?.message || error.message);
@@ -58,39 +49,39 @@ const Login = () => {
     }),
     onSubmit: async (values, { resetForm }) => {
       await postData(values);
-      resetForm(); // Reset the form after submission
+      resetForm();
     },
   });
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-100 items-center justify-center p-10">
-      <div className="flex w-full max-w-4xl rounded-lg">
+    <div className="flex flex-col min-h-screen bg-gray-100 items-center justify-center p-4 sm:p-6 lg:p-10">
+      <div className="flex flex-col lg:flex-row w-full max-w-4xl rounded-lg">
         <div
-          className="w-1/2 p-10 flex flex-col justify-between rounded-l-lg"
+          className="w-full lg:w-1/2 p-6 sm:p-10 flex flex-col justify-between rounded-t-lg lg:rounded-t-none lg:rounded-l-lg"
           style={{
             backgroundImage: `url(${img1})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
-            minHeight: "100%",
+            minHeight: "300px",
           }}
         >
           <div></div>
           <div className="text-white bg-opacity-50 p-4 rounded">
-            <p className="text-3xl italic">
+            <p className="text-xl sm:text-2xl lg:text-3xl italic">
               "Step into a world of endless possibilities and inspiration."
             </p>
-            <p className="mt-4">John Doe, Visionary and Innovator</p>
+            <p className="mt-4 text-sm sm:text-base">John Doe, Visionary and Innovator</p>
           </div>
         </div>
-        <div className="w-1/2 flex items-center justify-center">
-          <div className="bg-white p-8 shadow-lg w-full max-w-md rounded-r-lg">
-            <h2 className="text-3xl font-bold mb-2">
+        <div className="w-full lg:w-1/2 flex items-center justify-center bg-white rounded-b-lg lg:rounded-b-none lg:rounded-r-lg">
+          <div className="p-6 sm:p-8 w-full max-w-full sm:max-w-md">
+            <h2 className="text-2xl sm:text-3xl font-bold mb-2">
               Welcome back to Blog Manager
             </h2>
 
             <form onSubmit={formik.handleSubmit} className="space-y-4">
               <div>
-                <label className="Blog text-gray-700">Email</label>
+                <label className="block text-gray-700">Email</label>
                 <input
                   type="email"
                   name="email"
@@ -105,7 +96,7 @@ const Login = () => {
                 ) : null}
               </div>
               <div>
-                <label className="Blog text-gray-700">Password</label>
+                <label className="block text-gray-700">Password</label>
                 <input
                   type="password"
                   name="password"
@@ -116,17 +107,15 @@ const Login = () => {
                   onBlur={formik.handleBlur}
                 />
                 {formik.touched.password && formik.errors.password ? (
-                  <p className="text-red-500 text-sm">
-                    {formik.errors.password}
-                  </p>
+                  <p className="text-red-500 text-sm">{formik.errors.password}</p>
                 ) : null}
-                <a href="#" className="text-purple-600 text-sm">
+                <a href="#" className="text-purple-600 text-sm block mt-1">
                   Forgot password?
                 </a>
               </div>
               <div className="flex items-center">
                 <input type="checkbox" className="mr-2" />
-                <label className="text-gray-700 ">
+                <label className="text-gray-700 text-sm sm:text-base">
                   Remember sign in details
                 </label>
               </div>
@@ -134,7 +123,7 @@ const Login = () => {
 
               <button
                 type="submit"
-                className="w-full bg-purple-600 text-white p-3 rounded-full"
+                className="w-full bg-purple-600 text-white p-3 rounded-full hover:bg-purple-700"
               >
                 Log in
               </button>
@@ -147,7 +136,7 @@ const Login = () => {
                 />
                 Continue with Google
               </button>
-              <p className="text-center text-gray-600 mt-4">
+              <p className="text-center text-gray-600 mt-4 text-sm sm:text-base">
                 Don’t have an account?{" "}
                 <Link
                   to="/Blog_management_system/signup"
@@ -162,7 +151,7 @@ const Login = () => {
       </div>
       <Link
         to="/Blog_management_system"
-        className="text-blue-600 p-5 ml-150 underline"
+        className="text-blue-600 p-5 underline text-sm sm:text-base"
       >
         Back to landing page
       </Link>

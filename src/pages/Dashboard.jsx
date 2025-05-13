@@ -1,9 +1,8 @@
 import axios from "axios";
 import React, { useState, useEffect, useContext } from "react";
-import { IoCreateOutline, IoPersonCircleOutline } from "react-icons/io5";
-import { IoIosHome, IoIosAddCircleOutline } from "react-icons/io";
+import { IoIosHome } from "react-icons/io";
+import { IoCreateOutline } from "react-icons/io5";
 import { GoBook } from "react-icons/go";
-import { AiOutlinePoweroff } from "react-icons/ai";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { Authcontext } from "../context/Authcontext";
 
@@ -39,11 +38,11 @@ const Dashboard = () => {
   return (
     <section className="min-h-screen bg-gray-100">
       {/* Navbar */}
-      <div className="bg-teal-500 text-white shadow-md p-4 flex items-center justify-between">
+      <div className="bg-teal-500 text-white shadow-md p-4 flex flex-col md:flex-row items-center justify-between gap-4 md:gap-0">
         <div className="text-2xl font-bold">
           <span className="text-yellow-400">Blog</span>Verse
         </div>
-        <ul className="flex space-x-6">
+        <ul className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-6 w-full md:w-auto">
           {navitems.map((item, index) => (
             <li key={index}>
               <Link
@@ -60,56 +59,58 @@ const Dashboard = () => {
             </li>
           ))}
         </ul>
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-2 md:space-x-4 mt-2 md:mt-0">
           <span className="text-lg">{user?.name || "Guest"}</span>
-          <button className="bg-white text-teal-500 px-4 py-2 rounded hover:bg-gray-200">
+          <button className="bg-white text-teal-500 px-3 py-1 md:px-4 md:py-2 rounded hover:bg-gray-200 text-sm md:text-base">
             Logout
           </button>
         </div>
       </div>
 
       {/* Search Bar */}
-      <div className="bg-white shadow-md p-4 mb-6 flex items-center justify-between">
-        <h2 className="text-xl font-semibold text-gray-700">
+      <div className="bg-white shadow-md p-4 mb-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <h2 className="text-lg sm:text-xl font-semibold text-gray-700">
           Discover Blog Posts
         </h2>
         <input
           type="text"
           placeholder="Search blogs by title, content, or author..."
-          className="border border-gray-300 rounded-lg px-4 py-2 w-1/2"
+          className="border border-gray-300 rounded-lg px-4 py-2 w-full sm:w-1/2"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
         <Link
           to="/createblogs"
-          className="bg-teal-500 text-white px-4 py-2 rounded-lg hover:bg-teal-600"
+          className="bg-teal-500 text-white px-3 py-2 rounded-lg hover:bg-teal-600 w-full sm:w-auto text-center"
         >
           + Create New Blog
         </Link>
       </div>
 
       {/* Blog List */}
-      <div className="flex flex-wrap justify-center gap-6 px-4">
+      <div className="flex flex-wrap justify-center gap-6 px-2 sm:px-4">
         {filteredBlogs.length > 0 ? (
           filteredBlogs.map((blog, index) => (
             <div
               key={index}
-              className="bg-white w-full sm:w-[48%] lg:w-[30%] p-4 rounded shadow-md hover:shadow-lg transition-shadow duration-300"
+              className="bg-white w-full sm:w-[48%] lg:w-[30%] p-4 rounded shadow-md hover:shadow-lg transition-shadow duration-300 flex flex-col"
             >
-              <h2 className="text-xl font-bold text-gray-800 mb-1">
+              <h2 className="text-lg sm:text-xl font-bold text-gray-800 mb-1">
                 {blog.title}
               </h2>
-              <p className="text-sm text-gray-600 mb-2">
+              <p className="text-xs sm:text-sm text-gray-600 mb-2">
                 By <span className="font-medium">{blog.author.name}</span>
               </p>
               <img
                 src={blog.image || "/default-image.jpg"}
                 onError={(e) => (e.target.src = "/default-image.jpg")}
                 alt={blog.title}
-                className="w-full h-48 object-cover rounded mb-3"
+                className="w-full h-40 sm:h-48 object-cover rounded mb-3"
               />
-              <p className="text-gray-700 mb-2">{blog.content}</p>
-              <p className="text-xs text-gray-500">
+              <p className="text-gray-700 mb-2 text-sm sm:text-base">
+                {blog.content}
+              </p>
+              <p className="text-xs text-gray-500 mt-auto">
                 Created at: {new Date(blog.createdAt).toLocaleDateString()}
               </p>
             </div>
@@ -122,7 +123,7 @@ const Dashboard = () => {
       </div>
 
       {/* Child Routes */}
-      <div className="p-4">
+      <div className="p-2 sm:p-4">
         <Outlet context={{ blogs }} />
       </div>
     </section>
