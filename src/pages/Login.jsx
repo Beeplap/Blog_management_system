@@ -27,7 +27,7 @@ const Login = () => {
 
       login(token, user);
 
-      navigate("/Dashboard");
+      navigate("/Blog_management_system/Dashboard");
     } catch (error) {
       toast.error(error.response?.data?.message || error.message);
       console.error("Login error:", error);

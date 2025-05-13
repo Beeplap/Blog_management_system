@@ -7,7 +7,7 @@ import { Navigate } from "react-router-dom";
 const ProtectedRoute = ({ children }) => {
     const { token } = useContext(Authcontext);
     if (!token) {
-        return <Navigate to="/login" />;
+        return <Navigate to="/Blog_management_system/login" />;
     }
     return children;
 };

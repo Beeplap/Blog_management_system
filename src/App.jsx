@@ -7,7 +7,7 @@ import Protectedroute from "./components/Protectedroute.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
 import CreateBlog from "./pages/CreateBlog.jsx";
 import SingleBlogPage from "./pages/SingleBlogPage.jsx";
-import Myblogs from "./pages/MyBlogs.jsx";
+import Myblog from "./pages/MyBlogs.jsx";
 
 const BlogListWrapper = () => {
   return <div>Blog List Placeholder</div>;
@@ -18,7 +18,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route
-          path="/Dashboard"
+          path="/Blog_management_system/Dashboard"
           element={
             <Protectedroute>
               <Dashboard />
@@ -26,7 +26,7 @@ function App() {
           }
         />
         <Route
-          path="/singleblogs/:id"
+          path="/Blog_management_system/singleblogs/:id"
           element={
             <Protectedroute>
               <SingleBlogPage />
@@ -35,10 +35,10 @@ function App() {
         />
 
         <Route
-          path="/myblogs"
+          path="/Blog_management_system/myblogs"
           element={
             <Protectedroute>
-              <Myblogs/>
+              <Myblog/>
             </Protectedroute>
           }
         />
@@ -46,7 +46,7 @@ function App() {
 
 
         <Route index element={<BlogListWrapper />} />
-        <Route path="/createblogs" element={<CreateBlog />} />
+        <Route path="/Blog_management_system/createblogs" element={<CreateBlog />} />
 
         <Route path="/Blog_management_system/" element={<Landing />} />
         <Route path="/Blog_management_system/login" element={<Login />} />

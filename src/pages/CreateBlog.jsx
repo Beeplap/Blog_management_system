@@ -66,7 +66,7 @@ const CreateBlog = () => {
       );
       console.log("Blog created:", response.data);
       resetForm();
-      navigate("/dashboard");
+      navigate("/Blog_management_system/dashboard");
     } catch (error) {
       console.error("Error creating blog:", error.response?.data || error.message);
       alert("Failed to create blog: " + (error.response?.data?.message || error.message));
@@ -74,9 +74,9 @@ const CreateBlog = () => {
   };
 
   const navitems = [
-    { title: "Home", icon: <IoIosHome />, path: "/dashboard" },
-    { title: "Create", icon: <IoCreateOutline />, path: "/createblogs" },
-    { title: "My Blogs", icon: <GoBook />, path: "/myblogs" },
+    { title: "Home", icon: <IoIosHome />, path: "/Blog_management_system/dashboard" },
+    { title: "Create", icon: <IoCreateOutline />, path: "/Blog_management_system/createblogs" },
+    { title: "My Blogs", icon: <GoBook />, path: "/Blog_management_system/myblogs" },
   ];
 
   const formitems = [

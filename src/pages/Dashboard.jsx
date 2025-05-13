@@ -30,9 +30,9 @@ const Dashboard = () => {
   );
 
   const navitems = [
-    { title: "Home", icon: <IoIosHome />, path: "/dashboard" },
-    { title: "Create", icon: <IoCreateOutline />, path: "/createblogs" },
-    { title: "My Blogs", icon: <GoBook />, path: "/myblogs" },
+    { title: "Home", icon: <IoIosHome />, path: "/Blog_management_system/dashboard" },
+    { title: "Create", icon: <IoCreateOutline />, path: "/Blog_management_system/createblogs" },
+    { title: "My Blogs", icon: <GoBook />, path: "/Blog_management_system/myblogs" },
   ];
 
   const sanitizeHTML = (html) => html.replace(/<[^>]+>/g, "");
@@ -98,7 +98,7 @@ const Dashboard = () => {
         {filteredBlogs.length > 0 ? (
           filteredBlogs.map((blog) => (
             <Link
-              to={`/singleblogs/${blog._id}`}
+              to={`/Blog_management_system/singleblogs/${blog._id}`}
               key={blog._id}
               className="bg-white w-full sm:w-[48%] lg:w-[31%] p-4 rounded-xl shadow-md hover:scale-101 hover:drop-shadow-2xl transition-all duration-300 flex flex-col h-[320px] sm:h-[360px] md:h-[400px] relative group"
             >
