@@ -7,6 +7,7 @@ import { IoCreateOutline } from "react-icons/io5";
 import { GoBook } from "react-icons/go";
 import axios from "axios";
 import { Authcontext } from "../context/Authcontext";
+import { FaUserEdit } from "react-icons/fa";
 
 const CreateBlog = () => {
   const navigate = useNavigate();
@@ -121,12 +122,21 @@ const CreateBlog = () => {
             </li>
           ))}
         </ul>
-        <div className="flex items-center space-x-2 md:space-x-4 w-full md:w-auto">
-          <span className="text-base sm:text-lg md:text-xl">{user?.name || "Guest"}</span>
-          <button className="bg-white text-teal-500 px-3 py-1 sm:px-4 sm:py-2 rounded-lg hover:bg-gray-100 hover:shadow-md transition-all duration-200 text-sm sm:text-base w-full md:w-auto">
-            Logout
-          </button>
-        </div>
+       <div className="flex justify-end items-center space-x-2 md:space-x-4 w-full md:w-auto">
+                 <Link
+                   className=" flex items-center gap-2 bg-transparent text-white border border-transparent  px-3 py-1 sm:px-4 sm:py-2 rounded-lg hover:border-white hover:shadow-md transition-all duration-200 text-sm sm:text-base"
+                   to={"/Blog_management_system/profile"}
+                 >
+                   <FaUserEdit />
+                   {user?.name || "Guest"}
+                 </Link>
+                 <Link
+                   to={"/Blog_management_system/"}
+                   className="bg-white text-teal-500 px-3 py-1 sm:px-4 sm:py-2 rounded-lg hover:bg-gray-100 hover:shadow-md transition-all duration-200 text-sm sm:text-base"
+                 >
+                   Logout
+                 </Link>
+               </div>
       </div>
 
       {/* Form Section */}

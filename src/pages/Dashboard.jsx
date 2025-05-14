@@ -5,6 +5,7 @@ import { IoCreateOutline } from "react-icons/io5";
 import { GoBook } from "react-icons/go";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { Authcontext } from "../context/Authcontext";
+import { FaUserEdit } from "react-icons/fa";
 
 const Dashboard = () => {
   const [blogs, setBlogs] = useState([]);
@@ -30,9 +31,21 @@ const Dashboard = () => {
   );
 
   const navitems = [
-    { title: "Home", icon: <IoIosHome />, path: "/Blog_management_system/dashboard" },
-    { title: "Create", icon: <IoCreateOutline />, path: "/Blog_management_system/createblogs" },
-    { title: "My Blogs", icon: <GoBook />, path: "/Blog_management_system/myblogs" },
+    {
+      title: "Home",
+      icon: <IoIosHome />,
+      path: "/Blog_management_system/dashboard",
+    },
+    {
+      title: "Create",
+      icon: <IoCreateOutline />,
+      path: "/Blog_management_system/createblogs",
+    },
+    {
+      title: "My Blogs",
+      icon: <GoBook />,
+      path: "/Blog_management_system/myblogs",
+    },
   ];
 
   const sanitizeHTML = (html) => html.replace(/<[^>]+>/g, "");
@@ -61,20 +74,25 @@ const Dashboard = () => {
             </li>
           ))}
         </ul>
-        <div className="flex items-center space-x-2 md:space-x-4">
-          <span className="text-base sm:text-lg md:text-xl">
-            {user?.name || "Guest"}
-          </span>
+        <div className="flex justify-end items-center space-x-2 md:space-x-4 w-full md:w-auto">
           <Link
-          to={"/Blog_management_system/"} 
-          className="bg-white text-teal-500 px-3 py-1 sm:px-4 sm:py-2 rounded-lg hover:bg-gray-100 hover:shadow-md transition-all duration-200 text-sm sm:text-base">
+            className=" flex items-center gap-2 bg-transparent text-white border border-transparent  px-3 py-1 sm:px-4 sm:py-2 rounded-lg hover:border-white hover:shadow-md transition-all duration-200 text-sm sm:text-base"
+            to={"/Blog_management_system/profile"}
+          >
+            <FaUserEdit />
+            {user?.name || "Guest"}
+          </Link>
+          <Link
+            to={"/Blog_management_system/"}
+            className="bg-white text-teal-500 px-3 py-1 sm:px-4 sm:py-2 rounded-lg hover:bg-gray-100 hover:shadow-md transition-all duration-200 text-sm sm:text-base"
+          >
             Logout
           </Link>
         </div>
       </div>
 
       {/* Search Bar */}
-      <div className="bg-white shadow-md rounded-lg p-4 sm:p-6 mb-4 sm:mb-6 flex flex-col sm:flex-row items-center justify-between gap-4 mx-2 sm:mx-4">
+      <div className="bg-white shadow-md rounded-lg p-4 sm:p-6 mb-4 sm:mb-6 flex flex-col sm:flex-row items-center justify-around gap-4 mx-2 sm:mx-4">
         <h2 className="text-base sm:text-lg md:text-xl font-semibold text-gray-700">
           Discover Blog Posts
         </h2>
@@ -85,13 +103,8 @@ const Dashboard = () => {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
-        <Link
-          to="/createblogs"
-          className="bg-teal-500 text-white px-3 sm:px-4 py-2 sm:py-3 rounded-lg hover:bg-teal-600 hover:shadow-md transition-all duration-200 w-full sm:w-auto text-center text-sm sm:text-base"
-        >
-          + Create New Blog
-        </Link>
-      </div>
+       
+      </div>  
 
       {/* Blog List */}
       <div className="flex flex-wrap justify-center gap-4 sm:gap-6 px-2 sm:px-4 items-stretch">
@@ -108,45 +121,8 @@ const Dashboard = () => {
                   alt={blog.title}
                   className="w-full h-40 md:h-48 object-cover rounded-lg border border-gray-200"
                 />
-                {/* Delete button (visible for all users) */}
-                <button
-                  className=" absolute top-2 right-2 z-10 text-red-500 bg-white bg-opacity-80 hover:bg-red-100 rounded-full p-2 text-xl shadow transition-colors"
-                  title="Delete Blog"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    if (
-                      window.confirm(
-                        "Are you sure you want to delete this blog?"
-                      )
-                    ) {
-                      axios
-                        .delete(
-                          `https://blog-hqx2.onrender.com/blog/${blog._id}`
-                        )
-                        .then(() => {
-                          setBlogs((prev) =>
-                            prev.filter((b) => b._id !== blog._id)
-                          );
-                        });
-                    }
-                  }}
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M6 18L18 6M6 6l12 12"
-                    />
-                  </svg>
-                </button>
               </div>
+
               <div className="flex flex-col flex-1">
                 <h2 className="text-lg md:text-xl font-bold text-gray-800 mb-1 group-hover:text-teal-600 transition-colors duration-300 truncate">
                   {blog.title}
@@ -157,14 +133,50 @@ const Dashboard = () => {
                 <p className="text-gray-700 text-sm line-clamp-3 overflow-hidden mb-3">
                   {sanitizeHTML(blog.content)}
                 </p>
-                <div className="mt-auto pt-2">
+                <div className="mt-auto pt-2 flex items-center justify-between">
                   <p className="text-xs text-gray-500">
-                    Created at: {new Date(blog.createdAt).toLocaleDateString()}{" "}
-                    {new Date(blog.createdAt).toLocaleTimeString([], {
-                      hour: "2-digit",
-                      minute: "2-digit",
-                    })}
+                    Created at: {new Date(blog.createdAt).toLocaleString()}
                   </p>
+                  {/* Show delete button only if token exists */}
+                  {localStorage.getItem("token") && user?._id === blog.author._id && (
+                    <button
+                      className="bg-white bg-opacity-80 hover:bg-red-100 rounded-full p-2 text-xl shadow transition-colors"
+                      title="Delete Blog"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        if (
+                          window.confirm(
+                            "Are you sure you want to delete this blog?"
+                          )
+                        ) {
+                          axios
+                            .delete(
+                              `https://blog-hqx2.onrender.com/blog/${blog._id}`
+                            )
+                            .then(() => {
+                              setBlogs((prev) =>
+                                prev.filter((b) => b._id !== blog._id)
+                              );
+                            });
+                        }
+                      }}
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-5 w-5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M6 18L18 6M6 6l12 12"
+                        />
+                      </svg>
+                    </button>
+                  )}
                 </div>
               </div>
             </Link>
