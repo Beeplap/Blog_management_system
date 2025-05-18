@@ -8,7 +8,7 @@ import Protectedroute from "./components/Protectedroute.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
 import CreateBlog from "./pages/CreateBlog.jsx";
 import SingleBlogPage from "./components/SingleBlogPage.jsx";
-import Myblog from "./pages/MyBlogs.jsx";
+import Myblog from "./pages/Myblogs.jsx";
 import Profile from "./pages/Profile.jsx";
 
 const BlogListWrapper = () => {
