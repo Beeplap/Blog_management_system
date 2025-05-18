@@ -34,17 +34,17 @@ const Dashboard = () => {
     {
       title: "Home",
       icon: <IoIosHome />,
-      path: "/Blog_management_system/dashboard",
+      path: "/dashboard",
     },
     {
       title: "Create",
       icon: <IoCreateOutline />,
-      path: "/Blog_management_system/createblogs",
+      path: "/createblogs",
     },
     {
       title: "My Blogs",
       icon: <GoBook />,
-      path: "/Blog_management_system/myblogs",
+      path: "/myblogs",
     },
   ];
 
@@ -77,13 +77,13 @@ const Dashboard = () => {
         <div className="flex justify-end items-center space-x-2 md:space-x-4 w-full md:w-auto">
           <Link
             className=" flex items-center gap-2 bg-transparent text-white border border-transparent  px-3 py-1 sm:px-4 sm:py-2 rounded-lg hover:border-white hover:shadow-md transition-all duration-200 text-sm sm:text-base"
-            to={"/Blog_management_system/profile"}
+            to={"/profile"}
           >
             <FaUserEdit />
             {user?.name || "Guest"}
           </Link>
           <Link
-            to={"/Blog_management_system/"}
+            to={"/"}
             className="bg-white text-teal-500 px-3 py-1 sm:px-4 sm:py-2 rounded-lg hover:bg-gray-100 hover:shadow-md transition-all duration-200 text-sm sm:text-base"
           >
             Logout
@@ -111,7 +111,7 @@ const Dashboard = () => {
         {filteredBlogs.length > 0 ? (
           filteredBlogs.map((blog) => (
             <Link
-              to={`/Blog_management_system/singleblogs/${blog._id}`}
+              to={`/singleblogs/${blog._id}`}
               key={blog._id}
               className="bg-white w-full sm:w-[48%] lg:w-[31%] p-4 rounded-xl shadow-md hover:scale-101 hover:drop-shadow-2xl transition-all duration-300 flex flex-col h-[320px] sm:h-[360px] md:h-[400px] relative group"
             >

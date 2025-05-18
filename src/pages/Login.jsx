@@ -27,7 +27,7 @@ const Login = () => {
 
       login(token, user);
 
-      navigate("/Blog_management_system/Dashboard");
+      navigate("/Dashboard");
     } catch (error) {
       toast.error(error.response?.data?.message || error.message);
       console.error("Login error:", error);
@@ -139,7 +139,7 @@ const Login = () => {
               <p className="text-center text-gray-600 mt-4 text-sm sm:text-base">
                 Don’t have an account?{" "}
                 <Link
-                  to="/Blog_management_system/signup"
+                  to="/signup"
                   className="text-purple-600"
                 >
                   Sign up
@@ -150,7 +150,7 @@ const Login = () => {
         </div>
       </div>
       <Link
-        to="/Blog_management_system"
+        to="/"
         className="text-blue-600 p-5 underline text-sm sm:text-base"
       >
         Back to landing page

@@ -65,7 +65,7 @@ const SingleBlogPage = () => {
         {/* Back Button */}
         <div className="flex justify-center">
           <Link
-            to="/Blog_management_system/dashboard"
+            to="/dashboard"
             className="bg-teal-500 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg hover:bg-teal-600 transition-colors duration-200 text-sm sm:text-base"
           >
             Back to Dashboard

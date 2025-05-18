@@ -47,7 +47,7 @@ const Signup = () => {
         );
         console.log("Signup response:", response.data);
         toast.success("User signed up successfully");
-        navigate("/Blog_management_system/login");
+        navigate("/login");
       } catch (error) {
         const errorMessage = error.response?.data?.message || error.message;
         toast.error(errorMessage);
@@ -163,7 +163,7 @@ const Signup = () => {
               <p className="text-center text-gray-600 mt-4 text-sm sm:text-base">
                 Have an account?{" "}
                 <Link
-                  to="/Blog_management_system/login"
+                  to="/login"
                   className="text-purple-600"
                 >
                   Log in
@@ -174,7 +174,7 @@ const Signup = () => {
         </div>
       </div>
       <Link
-        to="/Blog_management_system"
+        to=""
         className="text-blue-600 p-5 underline text-sm sm:text-base"
       >
         Back to landing page

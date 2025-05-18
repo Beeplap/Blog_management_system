@@ -67,7 +67,7 @@ const CreateBlog = () => {
       );
       console.log("Blog created:", response.data);
       resetForm();
-      navigate("/Blog_management_system/dashboard");
+      navigate("/dashboard");
     } catch (error) {
       console.error("Error creating blog:", error.response?.data || error.message);
       alert("Failed to create blog: " + (error.response?.data?.message || error.message));
@@ -75,9 +75,9 @@ const CreateBlog = () => {
   };
 
   const navitems = [
-    { title: "Home", icon: <IoIosHome />, path: "/Blog_management_system/dashboard" },
-    { title: "Create", icon: <IoCreateOutline />, path: "/Blog_management_system/createblogs" },
-    { title: "My Blogs", icon: <GoBook />, path: "/Blog_management_system/myblogs" },
+    { title: "Home", icon: <IoIosHome />, path: "/dashboard" },
+    { title: "Create", icon: <IoCreateOutline />, path: "/createblogs" },
+    { title: "My Blogs", icon: <GoBook />, path: "/myblogs" },
   ];
 
   const formitems = [
@@ -125,13 +125,13 @@ const CreateBlog = () => {
        <div className="flex justify-end items-center space-x-2 md:space-x-4 w-full md:w-auto">
                  <Link
                    className=" flex items-center gap-2 bg-transparent text-white border border-transparent  px-3 py-1 sm:px-4 sm:py-2 rounded-lg hover:border-white hover:shadow-md transition-all duration-200 text-sm sm:text-base"
-                   to={"/Blog_management_system/profile"}
+                   to={"/profile"}
                  >
                    <FaUserEdit />
                    {user?.name || "Guest"}
                  </Link>
                  <Link
-                   to={"/Blog_management_system/"}
+                   to={"/"}
                    className="bg-white text-teal-500 px-3 py-1 sm:px-4 sm:py-2 rounded-lg hover:bg-gray-100 hover:shadow-md transition-all duration-200 text-sm sm:text-base"
                  >
                    Logout
