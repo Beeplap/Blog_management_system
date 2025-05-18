@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route, HashRouter } from "react-router-dom";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
 import Login from "./pages/Login.jsx";
 import Signup from "./pages/Signup.jsx";
 import Landing from "./pages/Landing.jsx";
@@ -16,7 +16,7 @@ const BlogListWrapper = () => {
 
 function App() {
   return (
-    <HashRouter>
+    <BrowserRouter>
       <Routes>
         <Route
           path="/Blog_management_system/Dashboard"
@@ -63,7 +63,7 @@ function App() {
         <Route path="/Blog_management_system/login" element={<Login />} />
         <Route path="/Blog_management_system/signup" element={<Signup />} />
       </Routes>
-    </HashRouter>
+    </BrowserRouter>
   );
 }
 
