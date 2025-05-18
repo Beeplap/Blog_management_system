@@ -1,5 +1,6 @@
 import React from "react";
-import { Routes, Route, BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import Login from "./pages/Login.jsx";
 import Signup from "./pages/Signup.jsx";
 import Landing from "./pages/Landing.jsx";
@@ -18,8 +19,13 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/createblogs" element={<CreateBlog />} />
+        
         <Route
-          path="/Blog_management_system/Dashboard"
+          path="/dashboard"
           element={
             <Protectedroute>
               <Dashboard />
@@ -27,16 +33,15 @@ function App() {
           }
         />
         <Route
-          path="/Blog_management_system/singleblogs/:id"
+          path="/singleblogs/:id"
           element={
             <Protectedroute>
               <SingleBlogPage />
             </Protectedroute>
           }
         />
-
         <Route
-          path="/Blog_management_system/myblogs"
+          path="/myblogs"
           element={
             <Protectedroute>
               <Myblog />
@@ -44,24 +49,14 @@ function App() {
           }
         />
         <Route
-          path="/Blog_management_system/profile"
+          path="/profile"
           element={
             <Protectedroute>
               <Profile />
             </Protectedroute>
           }
         />
-
-        <Route index element={<BlogListWrapper />} />
-
-        <Route
-          path="/Blog_management_system/createblogs"
-          element={<CreateBlog />}
-        />
-
-        <Route path="/Blog_management_system/" element={<Landing />} />
-        <Route path="/Blog_management_system/login" element={<Login />} />
-        <Route path="/Blog_management_system/signup" element={<Signup />} />
+        <Route path="/blogs" element={<BlogListWrapper />} />
       </Routes>
     </BrowserRouter>
   );
