@@ -13,7 +13,7 @@ const Profile = () => {
     { value: "", label: "Select your gender" },
     { value: "male", label: "Male" },
     { value: "female", label: "Female" },
-    { value: "other", label: "Other " },
+    { value: "other", label: "Other" },
   ]);
 
   if (!user) {
@@ -72,9 +72,11 @@ const Profile = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100 p-4">
-      <div className="bg-white shadow-md rounded-lg p-6 max-w-md w-full">
-        <h1 className="text-3xl font-bold mb-6 text-center">Your Profile</h1>
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-teal-100 to-teal-50 p-4">
+      <div className="bg-white shadow-lg rounded-lg p-8 max-w-md w-full">
+        <h1 className="text-4xl font-bold mb-6 text-center text-teal-700">
+          Your Profile
+        </h1>
 
         <Formik
           initialValues={initialValues}
@@ -82,16 +84,13 @@ const Profile = () => {
           onSubmit={handleSubmit}
         >
           {({ setFieldValue, values, isSubmitting }) => {
-            // Handle gender select change with extra logic
             const onGenderChange = (e) => {
               const val = e.target.value;
               if (val === "other") {
                 setShowGenderWarning(true);
-                // Remove the "other" option from dropdown options
                 setGenderOptions((opts) =>
                   opts.filter((opt) => opt.value !== "other")
                 );
-                // Reset gender selection to empty string
                 setFieldValue("sex", "");
               } else {
                 setShowGenderWarning(false);
@@ -101,16 +100,15 @@ const Profile = () => {
 
             return (
               <Form className="space-y-6">
-                {/* Profile Pic Preview and Upload */}
                 <div className="flex flex-col items-center">
                   {previewPic ? (
                     <img
                       src={previewPic}
                       alt="Profile Preview"
-                      className="w-32 h-32 rounded-full object-cover mb-4 border-2 border-teal-500"
+                      className="w-32 h-32 rounded-full object-cover mb-4 border-4 border-teal-500 shadow-md"
                     />
                   ) : (
-                    <div className="w-32 h-32 rounded-full bg-gray-300 flex items-center justify-center text-gray-600 text-6xl font-bold mb-4">
+                    <div className="w-32 h-32 rounded-full bg-gray-300 flex items-center justify-center text-gray-600 text-6xl font-bold mb-4 shadow-md">
                       {initialValues.name.charAt(0).toUpperCase()}
                     </div>
                   )}
@@ -137,7 +135,6 @@ const Profile = () => {
                   />
                 </div>
 
-                {/* Name */}
                 <div>
                   <label
                     htmlFor="name"
@@ -150,7 +147,7 @@ const Profile = () => {
                     name="name"
                     type="text"
                     placeholder="Enter your full name"
-                    className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+                    className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
                   />
                   <ErrorMessage
                     name="name"
@@ -159,7 +156,6 @@ const Profile = () => {
                   />
                 </div>
 
-                {/* Email */}
                 <div>
                   <label
                     htmlFor="email"
@@ -172,7 +168,7 @@ const Profile = () => {
                     name="email"
                     type="email"
                     placeholder="Enter your email"
-                    className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+                    className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
                   />
                   <ErrorMessage
                     name="email"
@@ -181,7 +177,6 @@ const Profile = () => {
                   />
                 </div>
 
-                {/* Contact */}
                 <div>
                   <label
                     htmlFor="contact"
@@ -194,7 +189,7 @@ const Profile = () => {
                     name="contact"
                     type="tel"
                     placeholder="+1234567890"
-                    className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+                    className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
                   />
                   <ErrorMessage
                     name="contact"
@@ -203,7 +198,6 @@ const Profile = () => {
                   />
                 </div>
 
-                {/* Sex / Gender */}
                 <div className="mb-4">
                   <label
                     htmlFor="sex"
@@ -217,7 +211,7 @@ const Profile = () => {
                     name="sex"
                     value={values.sex}
                     onChange={onGenderChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
                   >
                     {genderOptions.map(({ value, label }) => (
                       <option key={value} value={value}>
@@ -227,7 +221,7 @@ const Profile = () => {
                   </Field>
                   {showGenderWarning && (
                     <p className="text-sm text-gray-500 mt-1 italic">
-                      not buying it — only male or female, thanks
+                      Not buying it — only male or female, thanks.
                     </p>
                   )}
                   <ErrorMessage
@@ -237,12 +231,11 @@ const Profile = () => {
                   />
                 </div>
 
-                {/* Buttons */}
                 <div className="flex justify-between">
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className={`px-6 py-2 rounded-md text-white ${
+                    className={`px-6 py-3 rounded-md text-white font-semibold ${
                       isSubmitting
                         ? "bg-teal-300 cursor-not-allowed"
                         : "bg-teal-600 hover:bg-teal-700"
@@ -254,7 +247,7 @@ const Profile = () => {
                   <button
                     type="button"
                     onClick={() => logout()}
-                    className="px-6 py-2 rounded-md bg-red-600 text-white hover:bg-red-700 transition"
+                    className="px-6 py-3 rounded-md bg-red-600 text-white font-semibold hover:bg-red-700 transition"
                   >
                     Logout
                   </button>
